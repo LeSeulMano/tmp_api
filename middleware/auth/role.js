@@ -22,7 +22,6 @@ const login = (req, res) => {
     db.query(sql, [decryptedSessionId], function (err, result) {
         switch (result[0].role) {
             case 0:
-                console.log("oui")
                 return res.status(401).send({
                     message: "Unauthorized"
                 });
