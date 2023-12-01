@@ -7,6 +7,7 @@ const login = (req, res) => {
     const student_number = req.body.student_number;
     const password = req.body.password;
 
+
     const sql = `SELECT * FROM user, session WHERE user.student_number = ? AND user.id = session.id_user;`;
     db.query(sql, [student_number], function (err, result) {
         if (result.length != 1) {
@@ -19,6 +20,7 @@ const login = (req, res) => {
                 message: 'Email non vérifié !'
             })
         }
+
         bcrypt.compare(password, result[0]['password'], (bErr, bResult) => {
             if (bErr) {
                 return res.status(500).send({
@@ -31,7 +33,7 @@ const login = (req, res) => {
                 })
             }
             token(result[0]['id']).then((result) => {
-                res.cookie('token', result, { httpOnly: true, secure: true });
+                res.cookie('token', result, { httpOnly: false, secure: true, sameSite: 'None'});
                 return res.status(201).send({
                     message: 'Login !'
                 });

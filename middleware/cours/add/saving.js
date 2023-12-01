@@ -10,12 +10,19 @@ export function saving(file, matter, name, promotion, type, odlPath) {
 
         const filePath =  originalPath + matter + "/" + type + "/" + promotion + "/" + name;
 
-        fs.rename(odlPath, filePath, (err) => {
-            if (err) {
-                reject(err);
+        fs.access(filePath, fs.constants.F_OK, (err) => {
+            if (!err) {
+                reject(new Error('Un fichier avec le même nom existe déjà.'));
+            } else {
+                fs.rename(oldPath, filePath, (renameErr) => {
+                    if (renameErr) {
+                        reject(renameErr);
+                    } else {
+                        resolve(filePath);
+                    }
+                });
             }
-            resolve(filePath);
-        })
+        });
     })
 
 }

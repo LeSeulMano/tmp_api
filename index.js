@@ -15,9 +15,14 @@ const app = new express();
 //     next();
 // });
 
+const corsOptions = {
+    origin: 'http://localhost:8080', // Remplacez cela par l'URL de votre application Vue.js
+    credentials: true,
+};
+
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(authRoutes);
 app.use(coursRoutes);
 app.listen(5000, () => {

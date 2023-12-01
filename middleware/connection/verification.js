@@ -4,7 +4,6 @@ import db from '../../lib/db.js';
 
 const verification = async (req, res) => {
     const token = req.query.token;
-
     const secret_key = process.env.SECRET_KEY_TOKEN;
     const secretKeyCrypt = process.env.SECRET_KEY;
 
