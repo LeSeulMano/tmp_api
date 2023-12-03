@@ -32,7 +32,7 @@ const add = (req, res) => {
         db.query(sql, [matter, name, promotion, type, teacher], (err, result) => {
             if (err) {
                 return res.status(500).send({
-                    message: "Une erreure est survenu\n" + err + "\nSi le problème persiste veuillez contacter l'administrateur"
+                    message: err
                 })
             }
             if (result.length != 0) {
@@ -51,7 +51,7 @@ const add = (req, res) => {
                                 db.query(sqlContent, [author, year], (err, result) => {
                                     if (err) {
                                         return res.status(500).send({
-                                            message: "Une erreure est survenu\n" + err + "\nSi le problème persiste veuillez contacter l'administrateur"
+                                            message: err
                                         })
                                     }
                                     const sqlCours = `INSERT INTO propose (matter, name, promotion, type, id, teacher)
@@ -59,7 +59,7 @@ const add = (req, res) => {
                                     db.query(sqlCours, [matter, response[1], promotion, type, teacher], (err, result) => {
                                         if (err) {
                                             return res.status(500).send({
-                                                message: "Une erreure est survenu\n" + err + "\nSi le problème persiste veuillez contacter l'administrateur"
+                                                message: err
                                             })
                                         }
                                         return res.status(200).send({
@@ -71,22 +71,20 @@ const add = (req, res) => {
                         })
                         .catch((err) => {
                             return res.status(500).send({
-                                message: "Une erreure est survenu\n" + err + "\nSi le problème persiste veuillez contacter l'administrateur"
+                                message: err
                             })
                         })
 
                 })
                     .catch((err) => {
-                        console.log(err)
                         return res.status(500).send({
                             message: "Suspicion de virus !"
                         })
                     })
 
             }).catch((err) => {
-                console.log(err)
                 return res.status(500).send({
-                    message: "Une erreure est survenu\n" + err + "\nSi le problème persiste veuillez contacter l'administrateur"
+                    message: err
                 })
             })
         })

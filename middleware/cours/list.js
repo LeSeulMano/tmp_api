@@ -8,6 +8,7 @@ const list = (req, res) => {
                 message: err
             })
         }
+        console.log(result)
         return res.status(201).send({
             json: result
         })

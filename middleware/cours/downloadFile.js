@@ -6,7 +6,10 @@ const downloadFile = (req, res) => {
 
     res.download(filePath, (err) => {
         if (err) {
-            return res.status(500).send('Erreur lors du téléchargement du fichier.\n' + err);
+            console.log(err)
+            return res.status(500).send({
+                message: err
+            });
         }
     });
 

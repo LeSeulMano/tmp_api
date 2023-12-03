@@ -9,7 +9,11 @@ const login = (req, res) => {
 
 
     const sql = `SELECT * FROM user, session WHERE user.student_number = ? AND user.id = session.id_user;`;
+
+    console.log("oui")
     db.query(sql, [student_number], function (err, result) {
+        console.log(result)
+        console.log(err)
         if (result.length != 1) {
             return res.status(409).send({
                 message: 'Incorrect student_number !'

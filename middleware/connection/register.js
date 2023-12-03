@@ -7,18 +7,32 @@ const register = (req, res) => {
 
     const username = req.body.username;
     const email = req.body.email;
-    const student_number = req.body.student_number;
     const password = req.body.password;
+    const repeatPassword = req.body.repeatPassword;
 
-    const sql = `SELECT *
+    const uphfEmailRegex = /^[a-zA-Z0-9._-]+@uphf\.fr$/;
+
+    if (password != repeatPassword){
+        return res.status(409).send({
+            message: "Les deux mots de passe ne correspondent pas !"
+        })
+    }
+    if (!uphfEmailRegex.test(email)){
+        return res.status(409).send({
+            message: "L'email renseigné n'ai pas un mail uphf !"
+        })
+    }
+
+    const sql = `SELECT * 
                  from user
                  WHERE email = ?
-                    OR student_number = ?`;
+                    OR username = ?`;
 
-    db.query(sql, [email, student_number], function (err, result) {
+    db.query(sql, [email, username], function (err, result) {
         if (err) {
-            console.log(err);
-            throw err;
+            return res.status(500).send({
+                message: err
+            })
         }
         if (result.length != 0) {
             return res.status(409).send({
@@ -33,13 +47,13 @@ const register = (req, res) => {
                     message: err
                 })
             }
-            const sql = `INSERT INTO user (username, email, student_number, password)
-                         VALUES (?, ?, ?, ?)`
-            db.query(sql, [username, email, student_number, hash], function (err, result) {
+            const sql = `INSERT INTO user (username, email, password)
+                         VALUES (?, ?, ?)`
+            db.query(sql, [username, email, hash], function (err, result) {
                 if (err) {
                     if (err) {
                         return res.status(500).send({
-                            message: "Une erreure est survenu: \n" + err + "\nSi le problème persiste veuillez contacter l'administrateur"
+                            message: err
                         })
                     }
                 }
@@ -74,7 +88,7 @@ const register = (req, res) => {
 
                     transporter.sendMail(mailOption, (err, info) => {
                         if (err) {
-                            res.status(500).json({ message: 'Erreur lors de l\'envoi de l\'e-mail.' });
+                            res.status(500).json({ message: 'Erreur lors de l\'envoi de l\'e-mail. Contactez l\'administrateur\n' + err });
                         } else {
                             res.status(200).json({ message: 'E-mail envoyé avec succès.' });
                         }
