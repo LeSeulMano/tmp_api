@@ -8,6 +8,7 @@ import forgot from "../middleware/connection/forgot.js";
 import user from "../middleware/users/getUsers.js";
 import changeRole from "../middleware/users/changeRole.js";
 import deleteUser from "../middleware/users/deleteUser.js";
+import connect from "../middleware/connection/connect.js";
 
 const authRoutes = express.Router();
 
@@ -17,6 +18,7 @@ const authRoutes = express.Router();
 authRoutes.post("/register", register);
 authRoutes.post("/login", login);
 authRoutes.get("/logout", logout);
+authRoutes.get("/connect", connect);
 
 // Verification routes
 

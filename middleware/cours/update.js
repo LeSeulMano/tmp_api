@@ -7,11 +7,11 @@ import {formatNameFile} from "../utils/space.js";
 const update = (req, res) => {
 
     perm(req.cookies.token).then(async (result) => {
-        // if (result != 3 || result != 6) {
-        //     return res.status(401).send({
-        //         message: "Unauthorized"
-        //     });
-        // }
+        if (result != 3 || result != 6) {
+            return res.status(401).send({
+                message: "Unauthorized"
+            });
+        }
 
         const id = req.body.id;
         let newValue = req.body.value;

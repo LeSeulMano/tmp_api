@@ -11,7 +11,7 @@ const user = (req, res) => {
         db.query(sql, (err, result) => {
             if (err) {
                 return res.status(500).send({
-                    message: "Une erreure est survenu\n" + err + "\nSi le problème persiste veuillez contacter l'administrateur"
+                    message: err
                 })
             }
             return res.status(201).send({

@@ -4,19 +4,15 @@ import token from "./token.js";
 
 const login = (req, res) => {
 
-    const student_number = req.body.student_number;
+    const email = req.body.email;
     const password = req.body.password;
 
+    const sql = `SELECT * FROM user, session WHERE user.email = ? AND user.id = session.id_user;`;
 
-    const sql = `SELECT * FROM user, session WHERE user.student_number = ? AND user.id = session.id_user;`;
-
-    console.log("oui")
-    db.query(sql, [student_number], function (err, result) {
-        console.log(result)
-        console.log(err)
+    db.query(sql, [email], function (err, result) {
         if (result.length != 1) {
             return res.status(409).send({
-                message: 'Incorrect student_number !'
+                message: 'Incorrect email !'
             })
         }
         if (result[0]['is_checked'] == 0){

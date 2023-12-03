@@ -16,7 +16,7 @@ const verification = async (req, res) => {
     db.query(sql, [decryptedSessionId], function(err, result) {
         if (err) {
             return res.status(500).send({
-                message: "Une erreure est survenu: \n" + err + "\nSi le problème persiste veuillez contacter l'administrateur"
+                message: err
             })
         }
         if (result.affectedRows > 0){

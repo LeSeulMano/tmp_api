@@ -11,14 +11,14 @@ const deleteFile = (req, res) => {
     db.query(sql, [id], function (err, result) {
         if (err) {
             return res.status(500).send({
-                message: "Une erreure est survenu: \n" + err + "\nSi le problème persiste veuillez contacter l'administrateur"
+                message: err
             })
         }
         const path = result[0].path;
         fs.unlink(path, (err) => {
             if (err) {
                 return res.status(500).send({
-                    message: "Une erreure est survenu: \n" + err + "\nSi le problème persiste veuillez contacter l'administrateur"
+                    message: err
                 })
             }
             const sqlRemove2 = `DELETE
@@ -30,13 +30,13 @@ const deleteFile = (req, res) => {
             db.query(sqlRemove1, [id, id], function (err, result) {
                 if (err) {
                     return res.status(500).send({
-                        message: "Une erreure est survenu: \n" + err + "\nSi le problème persiste veuillez contacter l'administrateur"
+                        message: err
                     })
                 }
                 db.query(sqlRemove2, [id], function(err, result){
                     if (err) {
                         return res.status(500).send({
-                            message: "Une erreure est survenu: \n" + err + "\nSi le problème persiste veuillez contacter l'administrateur"
+                            message: err
                         })
                     }
                     return res.status(200).send();
