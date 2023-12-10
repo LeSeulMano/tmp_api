@@ -8,22 +8,16 @@ dotenv.config();
 
 const app = new express();
 
-// app.use(function(req, res, next) {
-//     res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
-//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, authorization');
-//     res.header('Access-Control-Allow-Credentials', true);
-//     next();
-// });
 
-//const corsOptions = {
-   // origin: 'http://localhost:8080', // Remplacez cela par l'URL de votre application Vue.js
-  //  credentials: true,
-//};
+// const corsOptions = {
+//     origin: ['http://57.129.14.178', 'http://localhost'],
+//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//     headers: 'Content-Type, Authorization',
+// };
 
 const corsOptions = {
-    origin: ['http://57.129.14.178', 'http://localhost'],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    headers: 'Content-Type, Authorization',
+    origin: 'http://localhost:8080', // Remplacez cela par l'URL de votre application Vue.js
+    credentials: true,
 };
 
 app.use(cookieParser());
@@ -32,6 +26,7 @@ app.use(cors({
   origin: 'http://57.129.14.178',
   credentials: true,
 }));
+// app.use(cors(corsOptions));
 app.use(authRoutes);
 app.use(coursRoutes);
 app.listen(5000, () => {

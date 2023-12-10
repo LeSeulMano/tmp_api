@@ -69,18 +69,15 @@ const register = (req, res) => {
                         html: `
 <html>
 <head>
-    <title>Confirmation de compte hilarante</title>
+    <title>Confirmation de Compte Étudiant</title>
 </head>
 <body style="font-family: Arial, sans-serif; background-color: #f0f0f0; text-align: center;">
     <div style="background-color: #ffffff; border-radius: 10px; padding: 20px; margin: 20px auto; max-width: 600px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1);">
-        <h1 style="color: #f00020;">Bienvenue dans la folie, cher utilisateur !</h1>
-        <p>Félicitations ! Vous avez réussi à créer un compte sur notre site ! Nous savons que cela peut être une expérience effrayante, mais ne vous inquiétez pas, nous ne mordons pas (surtout nos serveurs).</p>
-        <p>Mais avant de vous lancer dans l'aventure, nous devons nous assurer que vous n'êtes pas un robot déguisé en humain. Pour ce faire, veuillez confirmer votre adresse e-mail en cliquant sur le bouton ci-dessous :</p>
+        <h1 style="color: #f00020;">Bienvenue sur DELMOO.fr !</h1>
+        <p>Avant de vous lancer dans l'aventure, nous devons nous assurer que vous n'êtes pas un robot déguisé en humain. Pour ce faire, veuillez confirmer votre adresse e-mail en cliquant sur le bouton ci-dessous :</p>
         <a href="${activateLink}" style="background-color: #f00020; color: #ffffff; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; display: inline-block; margin-top: 20px;">Confirmer mon adresse e-mail</a>
-        <p>Si vous ne savez pas pourquoi vous êtes ici, ne vous inquiétez pas, c'est normal. Cliquez simplement sur le bouton et tout ira bien (nous l'espérons).</p>
-        <p>Merci d'avoir choisi notre site pour vos aventures en ligne. Nous avons hâte de rire, de vous divertir et de vous surprendre.</p>
-        <p>Amicalement,</p>
-        <p>L'équipe farfelue de delmoo.fr<br>N'oubliez pas, delmoo c'est par les étudiants pour les étudiants.</p>
+        <br><br><p>Merci d'avoir choisi notre site pour vos aventures en ligne.</p>
+        <p>Amicalement,<br>L'équipe DELMOO<br><br>Et n'oubliez pas, DELMOO c'est par les étudiants pour les étudiants.</p>
     </div>
 </body>
 </html>

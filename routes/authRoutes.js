@@ -9,6 +9,7 @@ import user from "../middleware/users/getUsers.js";
 import changeRole from "../middleware/users/changeRole.js";
 import deleteUser from "../middleware/users/deleteUser.js";
 import connect from "../middleware/connection/connect.js";
+import currentUser from "../middleware/users/currentUser.js";
 
 const authRoutes = express.Router();
 
@@ -37,6 +38,7 @@ authRoutes.post("/forgot", forgot);
 authRoutes.get("/user", user)
 authRoutes.post("/change-role", changeRole)
 authRoutes.get("/delete-user/:id", deleteUser)
+authRoutes.get("/current-user", currentUser)
 
 export default authRoutes;
 
