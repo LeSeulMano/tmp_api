@@ -18,9 +18,9 @@ const register = (req, res) => {
         })
     }
     if (!uphfEmailRegex.test(email)){
-        return res.status(409).send({
+       return res.status(409).send({
             message: "L'email renseigné n'ai pas un mail uphf !"
-        })
+       })
     }
 
     const sql = `SELECT * 
@@ -61,10 +61,10 @@ const register = (req, res) => {
                           VALUES (${result.insertId})`);
                 token(result.insertId).then((result) => {
 
-                    const activateLink = 'http://localhost:5000/verification?token=' + result;
+                    const activateLink = 'http://57.129.14.178:5000/verification?token=' + result;
                     const mailOption = {
-                        form: 'test@delmoo.fr',
-                        to: 'random@noob.fr',
+                        from: 'noreply@delmoo.fr',
+                        to: email,
                         subject: 'Activation de votre compte',
                         html: `
 <html>
@@ -85,19 +85,20 @@ const register = (req, res) => {
 </body>
 </html>
   `,                    }
-
+console.log("oui");
                     transporter.sendMail(mailOption, (err, info) => {
+console.log(info);
+console.log(err);
                         if (err) {
-                            res.status(500).json({ message: 'Erreur lors de l\'envoi de l\'e-mail. Contactez l\'administrateur\n' + err });
+console.log(err)
+                            return res.status(500).json({ message: 'Erreur lors de l\'envoi de l\'e-mail. Contactez l\'administrateur\n' + err });
                         } else {
-                            res.status(200).json({ message: 'E-mail envoyé avec succès.' });
+                    res.cookie('token', result, {httpOnly: true});
+                    return res.status(201).send({
+                        message: 'Registered !'
+                    });
                         }
                     })
-
-                    // res.cookie('token', result, {httpOnly: true, secure: true});
-                    // return res.status(201).send({
-                    //     message: 'Registered !'
-                    // });
                 })
             })
         })

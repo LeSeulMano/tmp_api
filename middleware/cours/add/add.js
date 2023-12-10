@@ -20,7 +20,7 @@ const add = (req, res) => {
         const year = req.body.year;
         const matter = req.body.matter;
         var name = req.body.name;
-        const promotion = req.body.promotion;
+        const promotion = parseInt(req.body.promotion.substring(0, 1));
         const type = req.body.type;
         const sql = `SELECT *
                      FROM propose

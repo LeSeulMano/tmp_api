@@ -7,7 +7,7 @@ const user = (req, res) => {
                 message: "Unauthorized"
             });
         }
-        const sql = `SELECT user.id, user.email, user.username, session.is_checked, user.student_number, user.role, user.download_count FROM user, session WHERE user.id = session.id_user`
+        const sql = `SELECT user.id, user.email, user.username, session.is_checked, user.role, user.download_count FROM user, session WHERE user.id = session.id_user`
         db.query(sql, (err, result) => {
             if (err) {
                 return res.status(500).send({

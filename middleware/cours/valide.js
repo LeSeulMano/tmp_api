@@ -1,10 +1,9 @@
-import {perm} from "../auth/tools/perm.js";
+import { perm } from "../auth/tools/perm.js";
 import db from "../../lib/db.js";
 import fs from 'fs';
 import path from "path";
 
 const valide = (req, res) => {
-
     perm(req.cookies.token).then(async (role) => {
         if (role != 3 && role != 6) {
             return res.status(401).send({
@@ -25,30 +24,37 @@ const valide = (req, res) => {
         db.query(sql, [id], (err, result) => {
             if (err) {
                 return res.status(500).send({
-                    message: "Une erreure est survenu: \n" + err + "\nSi le problème persiste veuillez contacter l'administrateur"
-                })
+                    message: "Une erreur est survenue: \n" + err + "\nSi le problème persiste veuillez contacter l'administrateur"
+                });
             }
+
             let newPath = path.join(originalPath, matter, type, promotion);
             let name = req.body.name;
+
             fs.access(newPath, fs.constants.F_OK, (err) => {
                 if (!err) {
                     let count = 1;
-                    const baseName = path.basename(name, path.extname(newPath));
-                    let newFileName = `${baseName}(${count})${path.extname(result[0].path)}`;
-                    let newFilePath = path.join(newPath, newFileName)
+                    const baseName = path.basename(name, path.extname(name));
+                    const extension = path.extname(result[0].path);
+
+                    let newFileName = `${baseName}${extension}`;
+                    let newFilePath = path.join(newPath, newFileName);
+
                     while (fs.existsSync(newFilePath)) {
                         count++;
-                        newFileName = `${baseName}(${count})${path.extname(newFilePath)}`;
+                        newFileName = `${baseName}(${count})${extension}`;
                         newFilePath = path.join(newPath, newFileName);
                     }
+
                     newPath = newFilePath;
                     name = newFileName;
                 }
+
                 fs.rename(result[0].path, newPath, (renameErr) => {
                     if (renameErr) {
                         return res.status(500).send({
-                            message: "Une erreure est survenu: \n" + renameErr + "\nSi le problème persiste veuillez contacter l'administrateur"
-                        })
+                            message: "Une erreur est survenue: \n" + renameErr + "\nSi le problème persiste veuillez contacter l'administrateur"
+                        });
                     } else {
                         const sql = 'DELETE FROM propose WHERE id = ?;'
                         db.query(sql, [id], (err, result) => {
@@ -79,9 +85,9 @@ const valide = (req, res) => {
                         })
                     }
                 });
-            })
-        })
-    })
-}
+            });
+        });
+    });
+};
 
 export default valide;

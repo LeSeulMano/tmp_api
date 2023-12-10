@@ -15,14 +15,23 @@ const app = new express();
 //     next();
 // });
 
+//const corsOptions = {
+   // origin: 'http://localhost:8080', // Remplacez cela par l'URL de votre application Vue.js
+  //  credentials: true,
+//};
+
 const corsOptions = {
-    origin: 'http://localhost:8080', // Remplacez cela par l'URL de votre application Vue.js
-    credentials: true,
+    origin: ['http://57.129.14.178', 'http://localhost'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    headers: 'Content-Type, Authorization',
 };
 
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors(corsOptions));
+app.use(cors({
+  origin: 'http://57.129.14.178',
+  credentials: true,
+}));
 app.use(authRoutes);
 app.use(coursRoutes);
 app.listen(5000, () => {

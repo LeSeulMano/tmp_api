@@ -33,7 +33,7 @@ const login = (req, res) => {
                 })
             }
             token(result[0]['id']).then((result) => {
-                res.cookie('token', result, { httpOnly: false, secure: true, sameSite: 'None'});
+                res.cookie('token', result, { httpOnly: false, sameSite: 'Lax'});
                 return res.status(201).send({
                     message: 'Login !'
                 });
