@@ -57,11 +57,14 @@ const add = (req, res) => {
                                     const sqlCours = `INSERT INTO propose (matter, name, promotion, type, id, teacher)
                                                   VALUES (?, ?, ?, ?, ${result.insertId}, ?);`
                                     db.query(sqlCours, [matter, response[1], promotion, type, teacher], (err, result) => {
+
                                         if (err) {
+
                                             return res.status(500).send({
                                                 message: err
                                             })
                                         }
+
                                         return res.status(200).send({
                                             message: "Upload effectué avec succès !"
                                         })

@@ -60,6 +60,7 @@ const register = (req, res) => {
                 db.query(`INSERT INTO session (id_user)
                           VALUES (${result.insertId})`);
                 token(result.insertId).then((result) => {
+console.log("oui")
 
                     const activateLink = 'https://delmoo.fr:5000/verification?token=' + result;
                     const mailOption = {
@@ -83,6 +84,7 @@ const register = (req, res) => {
 </html>
   `,                    }
                     transporter.sendMail(mailOption, (err, info) => {
+console.log("oui")
                         if (err) {
                             return res.status(500).json({ message: 'Erreur lors de l\'envoi de l\'e-mail. Contactez l\'administrateur\n' + err });
                         } else {
