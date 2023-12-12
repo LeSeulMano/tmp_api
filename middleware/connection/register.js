@@ -61,7 +61,7 @@ const register = (req, res) => {
                           VALUES (${result.insertId})`);
                 token(result.insertId).then((result) => {
 
-                    const activateLink = 'http://57.129.14.178:5000/verification?token=' + result;
+                    const activateLink = 'https://delmoo.fr:5000/verification?token=' + result;
                     const mailOption = {
                         from: 'noreply@delmoo.fr',
                         to: email,
@@ -82,12 +82,8 @@ const register = (req, res) => {
 </body>
 </html>
   `,                    }
-console.log("oui");
                     transporter.sendMail(mailOption, (err, info) => {
-console.log(info);
-console.log(err);
                         if (err) {
-console.log(err)
                             return res.status(500).json({ message: 'Erreur lors de l\'envoi de l\'e-mail. Contactez l\'administrateur\n' + err });
                         } else {
                     res.cookie('token', result, {httpOnly: true});
