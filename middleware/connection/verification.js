@@ -21,7 +21,7 @@ const verification = async (req, res) => {
         }
         if (result.affectedRows > 0){
             res.cookie('token', token, {httpOnly: true, secure: true});
-            res.status(200).send({ message: 'Compte activé avec succès.' });
+res.redirect('/');
         }
         else {
             return res.status(500).send({
