@@ -11,7 +11,6 @@ const verification = async (req, res) => {
     const iv = Buffer.from(tokenData.sessionId.iv, 'hex');
     const decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(secretKeyCrypt, 'hex'), iv);
     const decryptedSessionId = decipher.update(tokenData.sessionId.sessionId, 'hex', 'utf8') + decipher.final('utf8');
-
     const sql = `UPDATE session SET is_checked = 1 WHERE id_session = ?;`;
     db.query(sql, [decryptedSessionId], function(err, result) {
         if (err) {
@@ -21,7 +20,7 @@ const verification = async (req, res) => {
         }
         if (result.affectedRows > 0){
             res.cookie('token', token, {httpOnly: true, secure: true});
-res.redirect('/');
+res.redirect('https://delmoo.fr');
         }
         else {
             return res.status(500).send({
