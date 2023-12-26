@@ -28,13 +28,13 @@ app.use(authRoutes);
 
 app.use(coursRoutes);
 
-// const serverOptions = {
-//   key: fs.readFileSync('/etc/letsencrypt/live/delmoo.fr/privkey.pem'),
-//   cert: fs.readFileSync('/etc/letsencrypt/live/delmoo.fr/fullchain.pem'),
-// };
+const serverOptions = {
+  key: fs.readFileSync('/etc/letsencrypt/live/delmoo.fr/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/delmoo.fr/fullchain.pem'),
+};
 
-// const server = https.createServer(serverOptions, app);
+const server = https.createServer(serverOptions, app);
 
-app.listen(5000, () => {
+server.listen(5000, () => {
   console.log('Serveur HTTPS running ...');
 });
