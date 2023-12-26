@@ -12,23 +12,24 @@ export function propose(file, matter, name, odlPath) {
         const baseName = path.basename(name, path.extname(name));
         const extension = path.extname(name);
 
+
         fs.access(filePath, fs.constants.F_OK, (err) => {
             if (!err) {
                 let count = 1;
-                let newFileName = `${baseName}(${count})${extension}`;
-                let newFilePath = path.join(originalPath, newFileName);
+                let newFileName = baseName + '(' + count + ')' + extension;
+                let newFilePath = originalPath + newFileName;
 
                 while (fs.existsSync(newFilePath)) {
                     count++;
-                    newFileName = `${baseName}(${count})${extension}`;
-                    newFilePath = path.join(originalPath, newFileName);
+                    newFileName = baseName + '(' + count + ')' + extension;
+                    newFilePath = originalPath + newFileName;
                 }
 
-                name = `${baseName}(${count})${extension}`;
-                filePath = originalPath + name
+                name = newFileName;
+                filePath = newFilePath;
             }
 
-            fs.rename(odlPath, path.join(originalPath, name), (renameErr) => {
+            fs.rename(odlPath, filePath, (renameErr) => {
                 if (renameErr) {
                     reject(renameErr);
                 } else {

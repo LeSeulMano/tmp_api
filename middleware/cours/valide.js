@@ -24,7 +24,7 @@ const valide = (req, res) => {
         db.query(sql, [id], (err, result) => {
             if (err) {
                 return res.status(500).send({
-                    message: "Une erreur est survenue: \n" + err + "\nSi le problème persiste veuillez contacter l'administrateur"
+                    message: err
                 });
             }
 
@@ -49,32 +49,32 @@ const valide = (req, res) => {
                     newPath = newFilePath;
                     name = newFileName;
                 }
-
+                console.log(newPath)
                 fs.rename(result[0].path, newPath, (renameErr) => {
                     if (renameErr) {
                         return res.status(500).send({
-                            message: "Une erreur est survenue: \n" + renameErr + "\nSi le problème persiste veuillez contacter l'administrateur"
+                            message: renameErr
                         });
                     } else {
                         const sql = 'DELETE FROM propose WHERE id = ?;'
                         db.query(sql, [id], (err, result) => {
                             if (err) {
                                 return res.status(500).send({
-                                    message: "Une erreure est survenu: \n" + err + "\nSi le problème persiste veuillez contacter l'administrateur"
+                                    message: err
                                 })
                             }
                             const sql = "INSERT INTO cours(matter, name, promotion, type, id, teacher) VALUES (?, ?, ?, ?, ?, ?)"
                             db.query(sql, [matter, name, promotion, type, id, teacher], (err, result) => {
                                 if (err) {
                                     return res.status(500).send({
-                                        message: "Une erreure est survenu: \n" + err + "\nSi le problème persiste veuillez contacter l'administrateur"
+                                        message: err
                                     })
                                 }
                                 const sql = `UPDATE content SET path = ? WHERE id = ?;`;
                                 db.query(sql, [newPath, id], (err, result) => {
                                     if (err) {
                                         return res.status(500).send({
-                                            message: "Une erreure est survenu: \n" + err + "\nSi le problème persiste veuillez contacter l'administrateur"
+                                            message: err
                                         })
                                     }
                                     return res.status(200).send({
