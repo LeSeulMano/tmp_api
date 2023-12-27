@@ -15,8 +15,7 @@ export function perm(token){
             const sql = `SELECT user.role, session.is_checked
                          FROM user,
                               session
-                         WHERE session.id_session = ?
-                           AND session.id_user = user.id;`
+                         WHERE session.id_session = ? AND session.id_user = user.id;`
             db.query(sql, [decryptedSessionId], function (err, result) {
 		if (result[0].is_checked == 0){
 			resolve(-1);

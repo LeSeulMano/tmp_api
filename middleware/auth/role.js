@@ -12,7 +12,7 @@ const role = (req, res) => {
         const iv = Buffer.from(tokenData.sessionId.iv, 'hex');
         const decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(secretKeyCrypt, 'hex'), iv);
         const decryptedSessionId = decipher.update(tokenData.sessionId.sessionId, 'hex', 'utf8') + decipher.final('utf8');
-	
+console.log(req.cookies.token)	
         const sql = `SELECT user.role
                      FROM user,
                           session

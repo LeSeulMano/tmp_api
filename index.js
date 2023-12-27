@@ -18,8 +18,10 @@ const corsOptions = {
     'https://delmoo.fr',
     'http://localhost:8080'
   ],
+optionsSuccessStatus: 200,
   credentials: true,
 };
+
 
 app.use(cookieParser());
 app.use(express.json());

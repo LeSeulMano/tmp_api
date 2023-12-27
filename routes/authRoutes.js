@@ -14,6 +14,20 @@ import currentUser from "../middleware/users/currentUser.js";
 const authRoutes = express.Router();
 
 
+const checkReferer = (req, res, next) => {
+  const referer = req.get('Referer');
+
+  // Vérifiez si le Referer correspond à votre site web
+  if (referer && referer.startsWith('https://delmoo.fr')) {
+    next(); // Referer valide, continuez le traitement
+  } else {
+    res.status(403).json({ error: 'Accès interdit depuis cette origine.' });
+  }
+};
+
+authRoutes.use(checkReferer);
+
+
 // Connection routes
 
 authRoutes.post("/register", register);
