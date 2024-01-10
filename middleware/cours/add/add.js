@@ -12,7 +12,7 @@ const add = (req, res) => {
     perm(req.cookies.token).then(async (result) => {
         if (result == -1) {
             return res.status(401).send({
-                message: "Unauthorized"
+                message: "Vous devez être connecté pour ajouter un cours !"
             });
         }
         const file = req.file;

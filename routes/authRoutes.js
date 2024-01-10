@@ -16,9 +16,8 @@ const authRoutes = express.Router();
 
 const checkReferer = (req, res, next) => {
   const referer = req.get('Referer');
-
   // Vérifiez si le Referer correspond à votre site web
-  if (referer && referer.startsWith('https://delmoo.fr')) {
+  if (referer && (referer.startsWith('https://delmoo.fr') || referer.startsWith('https://www.delmoo.fr') || referer.startsWith('http://localhost:8080'))) {
     next(); // Referer valide, continuez le traitement
   } else {
     res.status(403).json({ error: 'Accès interdit depuis cette origine.' });
